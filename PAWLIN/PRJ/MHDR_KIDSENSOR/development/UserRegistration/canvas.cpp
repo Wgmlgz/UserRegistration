@@ -4,6 +4,7 @@
 #include "image.h"
 #include "rectangle.h"
 #include "text.h"
+#include "button.h"
 
 Canvas::Canvas(cv::Scalar color)
     : prompt(prompt),
@@ -28,15 +29,17 @@ void Canvas::Render() {
     else if (i->type == "Image") static_cast<Image*>(i)->Render();
     else if (i->type == "RectangleLine") static_cast<RectangleLine*>(i)->Render();
     else if (i->type == "Text") static_cast<Text*>(i)->Render();
+    else if (i->type == "Button") static_cast<Button*>(i)->Render();
     else i->Render();
   }
 }
 
 void Canvas::Update() {
-  key = pawlin::debugImg(winname, canvas, 1, 1, false);
-  for (auto element : ui_elements) {
-    element->Update(key, mouse_x, mouse_y, mouse_event);
-  }
+    key = pawlin::debugImg(winname, canvas, 1, 1, false);
+    for (auto i : ui_elements) {
+        if (i->type == "Button") static_cast<Button*>(i)->Update(key, mouse_x, mouse_y, mouse_event);
+        else i->Render();
+    }
 }
 
 void Canvas::AddUIElement(UIElement* element) {

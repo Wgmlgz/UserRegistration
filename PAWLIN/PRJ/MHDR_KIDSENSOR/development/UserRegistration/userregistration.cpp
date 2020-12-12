@@ -14,6 +14,7 @@
 #include "image.h"
 #include "rectangle.h"
 #include "text.h"
+#include "button.h"
 
 using namespace pawlin;
 class TextEdit : public CvInteractWindowBase {
@@ -152,7 +153,6 @@ class TextEdit : public CvInteractWindowBase {
 	virtual void updateClick(int x, int y, int event, int flags) override {
         // change cursor position with mouse click
         if (event == cv::EVENT_LBUTTONDOWN) {
-
             if (y < where.y + 20 && y > where.y - 5) {
                 if (x > where.x&& x < where.x + entered.size() * char_size + char_size) {
                     cursor_pos = (x - where.x + char_size / 2) / char_size;
@@ -170,6 +170,7 @@ int process(const ArgParser &parser) {
   main_canvas.AddUIElement(new VideoStream("Novogodniy_dudos.avi", cv::Point(200, 100)));
   main_canvas.AddUIElement(new Image(cv::imread("da.png")));
   main_canvas.AddUIElement(new RectangleLine(cv::Point(100, 300), cv::Size(100, 100)));
+  main_canvas.AddUIElement(new Button(cv::Point(200, 400), cv::Size(200, 100), []() {printf("%s", "HI GAY!!!!\n"); }, CV_RGB(0, 0, 0)));
   main_canvas.AddUIElement(new Text("8=====)"));
   main_canvas.Run();
   return 0;

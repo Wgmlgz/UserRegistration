@@ -27,5 +27,5 @@ class UIElement {
             cv::Scalar n_color = CV_RGB(255, 255, 255));
   void SetParentCanvas(cv::Mat* n_parent_canvas);
   void Render();
-  void Update(int key, int x, int y, int event);
+  virtual void Update(int key, int x, int y, int event);
 };
