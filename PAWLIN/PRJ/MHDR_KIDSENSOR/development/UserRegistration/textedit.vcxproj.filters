@@ -28,6 +28,9 @@
     <Filter Include="Source Files\Canvas">
       <UniqueIdentifier>{7342898f-bc38-4f70-b910-f6647d023f1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UiElements\video_stream">
+      <UniqueIdentifier>{392895b6-0a3b-45c0-a2b2-089b92396caa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -60,6 +63,9 @@
     <ClInclude Include="ui_element.h">
       <Filter>Source Files\UiElements</Filter>
     </ClInclude>
+    <ClInclude Include="video_stream.h">
+      <Filter>Source Files\UiElements\video_stream</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -86,5 +92,13 @@
     <ClCompile Include="ui_element.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
+    <ClCompile Include="video_stream.cpp">
+      <Filter>Source Files\UiElements\video_stream</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\..\Users\Wgmlgz\Desktop\Novogodniy_dudos.avi">
+      <Filter>Source Files\UiElements\video_stream</Filter>
+    </None>
   </ItemGroup>
 </Project>

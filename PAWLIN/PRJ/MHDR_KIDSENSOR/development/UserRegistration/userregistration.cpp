@@ -10,6 +10,7 @@
 #include <PWNOpenCvExt/cvmathdrawingnew.h>
 
 #include "canvas.h"
+#include "video_stream.h"
 using namespace pawlin;
 class TextEdit : public CvInteractWindowBase {
 	string prompt;
@@ -162,6 +163,7 @@ class TextEdit : public CvInteractWindowBase {
 
 int process(const ArgParser &parser) {
   Canvas main_canvas;
+  main_canvas.AddUIElement(new VideoStream());
   main_canvas.AddUIElement(new UIElement());
   main_canvas.Run();
   return 0;

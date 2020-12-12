@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "canvas.h"
+#include "video_stream.h"
 
 Canvas::Canvas(cv::Scalar color)
     : prompt(prompt),
@@ -19,19 +20,19 @@ void Canvas::Run() {
 void Canvas::Render() {
   canvas = background_color;
 
-  for (auto element : ui_elements) {
-    element.Render();
+  for (auto i : ui_elements) {
+    static_cast<VideoStream*>(i)->Render();
   }
 }
 
 void Canvas::Update() {
   key = pawlin::debugImg(winname, canvas, 1, 200, false);
   for (auto element : ui_elements) {
-    element.Update(key, mouse_x, mouse_y, mouse_event);
+    element->Update(key, mouse_x, mouse_y, mouse_event);
   }
 }
 
 void Canvas::AddUIElement(UIElement* element) {
   element->SetParentCanvas(&canvas);
-  ui_elements.push_back(*element);
+  ui_elements.push_back(element);
 }

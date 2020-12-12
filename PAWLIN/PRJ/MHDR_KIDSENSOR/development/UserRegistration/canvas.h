@@ -23,7 +23,7 @@ class Canvas : public CvInteractWindowBase {
 
   cv::Mat canvas;
 
-  vector<UIElement> ui_elements;
+  vector<UIElement*> ui_elements;
 
   // input
   int key, mouse_x, mouse_y, mouse_event;
