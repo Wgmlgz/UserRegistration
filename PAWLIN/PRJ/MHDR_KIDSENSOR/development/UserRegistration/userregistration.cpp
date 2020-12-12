@@ -13,6 +13,7 @@
 #include "video_stream.h"
 #include "image.h"
 #include "rectangle.h"
+#include "text.h"
 
 using namespace pawlin;
 class TextEdit : public CvInteractWindowBase {
@@ -169,6 +170,7 @@ int process(const ArgParser &parser) {
   main_canvas.AddUIElement(new VideoStream("Novogodniy_dudos.avi", cv::Point(200, 100)));
   main_canvas.AddUIElement(new Image(cv::imread("da.png")));
   main_canvas.AddUIElement(new RectangleLine(cv::Point(100, 300), cv::Size(100, 100)));
+  main_canvas.AddUIElement(new Text("8=====)"));
   main_canvas.Run();
   return 0;
 }

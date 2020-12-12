@@ -40,6 +40,9 @@
     <Filter Include="Source Files\UiElements\rectangle">
       <UniqueIdentifier>{42c8a19e-19fd-40f6-a519-3c5579a06947}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UiElements\text">
+      <UniqueIdentifier>{3fe71c38-40c7-4849-96f3-faa6d5bb825e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -84,6 +87,9 @@
     <ClInclude Include="button.h">
       <Filter>Source Files\UiElements\button</Filter>
     </ClInclude>
+    <ClInclude Include="text.h">
+      <Filter>Source Files\UiElements\text</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -121,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="button.cpp">
       <Filter>Source Files\UiElements\button</Filter>
+    </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Source Files\UiElements\text</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

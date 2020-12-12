@@ -3,6 +3,7 @@
 #include "video_stream.h"
 #include "image.h"
 #include "rectangle.h"
+#include "text.h"
 
 Canvas::Canvas(cv::Scalar color)
     : prompt(prompt),
@@ -26,6 +27,7 @@ void Canvas::Render() {
     if (i->type == "VideoStream") static_cast<VideoStream*>(i)->Render();
     else if (i->type == "Image") static_cast<Image*>(i)->Render();
     else if (i->type == "RectangleLine") static_cast<RectangleLine*>(i)->Render();
+    else if (i->type == "Text") static_cast<Text*>(i)->Render();
     else i->Render();
   }
 }
