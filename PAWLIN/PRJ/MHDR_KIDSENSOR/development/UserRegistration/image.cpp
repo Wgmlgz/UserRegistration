@@ -3,7 +3,6 @@
 
 Image::Image(cv::Mat n_image, cv::Point n_pos, cv::Size n_size,
              cv::Scalar n_color) {
-  type = "Image";
   image = n_image;
   pos = n_pos;
   size = n_size;

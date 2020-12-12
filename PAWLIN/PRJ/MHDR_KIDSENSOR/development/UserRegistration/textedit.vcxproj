@@ -151,6 +151,7 @@
     <ClInclude Include="..\..\..\..\IP\PWNOpenCvExt\cvdrawingcompat.h" />
     <ClInclude Include="..\..\..\..\IP\PWNOpenCvExt\cvmathdrawingnew.h" />
     <ClInclude Include="button.h" />
+    <ClInclude Include="but_image.h" />
     <ClInclude Include="canvas.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="rectangle.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\..\..\..\IP\PWNGeneral\pwnutil.cpp" />
     <ClCompile Include="..\..\..\..\IP\PWNOpenCvExt\cvmathdrawingnew.cpp" />
     <ClCompile Include="button.cpp" />
+    <ClCompile Include="but_image.cpp" />
     <ClCompile Include="canvas.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="rectangle.cpp" />

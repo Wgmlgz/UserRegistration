@@ -43,6 +43,9 @@
     <Filter Include="Source Files\UiElements\text">
       <UniqueIdentifier>{3fe71c38-40c7-4849-96f3-faa6d5bb825e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UiElements\but_image">
+      <UniqueIdentifier>{d6c99b80-f6f1-4eec-9c4b-9cd7c4c8b278}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -90,6 +93,9 @@
     <ClInclude Include="text.h">
       <Filter>Source Files\UiElements\text</Filter>
     </ClInclude>
+    <ClInclude Include="but_image.h">
+      <Filter>Source Files\UiElements\but_image</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="text.cpp">
       <Filter>Source Files\UiElements\text</Filter>
+    </ClCompile>
+    <ClCompile Include="but_image.cpp">
+      <Filter>Source Files\UiElements\but_image</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

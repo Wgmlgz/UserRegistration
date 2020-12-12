@@ -8,15 +8,15 @@
 
 Canvas::Canvas(cv::Scalar color)
     : prompt(prompt),
-      CvInteractWindowBase("Enter string", cv::Size(1200, 720), CV_8UC3) {
+      CvInteractWindowBase("User registration", cv::Size(1280, 720), CV_8UC3) {
   canvas = cv::Mat::zeros(canv_size, canv_type);
-  pos = cv::Point(100, 100);
+  pos = cv::Point(200, 300);
   background_color = color;
 }
 
-void Canvas::Run() {
+void Canvas::Run(int wait) {
   for (;;) {
-    Update();
+    Update(wait);
     Render();
   }
 }
@@ -25,21 +25,19 @@ void Canvas::Render() {
   canvas = background_color;
 
   for (auto i : ui_elements) {
-    if (i->type == "VideoStream") static_cast<VideoStream*>(i)->Render();
-    else if (i->type == "Image") static_cast<Image*>(i)->Render();
-    else if (i->type == "RectangleLine") static_cast<RectangleLine*>(i)->Render();
-    else if (i->type == "Text") static_cast<Text*>(i)->Render();
-    else if (i->type == "Button") static_cast<Button*>(i)->Render();
-    else i->Render();
+    i->Render();
   }
 }
 
-void Canvas::Update() {
-    key = pawlin::debugImg(winname, canvas, 1, 1, false);
-    for (auto i : ui_elements) {
-        if (i->type == "Button") static_cast<Button*>(i)->Update(key, mouse_x, mouse_y, mouse_event);
-        else i->Render();
-    }
+void Canvas::Update(int wait) {
+  key = pawlin::debugImg(winname, canvas, 1, wait, false);
+  for (auto i : ui_elements) {
+    i->Update(key, mouse_x, mouse_y, mouse_event);
+  }
+}
+
+void Canvas::ClearCanvas() {
+  ui_elements.clear();
 }
 
 void Canvas::AddUIElement(UIElement* element) {

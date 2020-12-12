@@ -6,7 +6,6 @@ Text::Text(string txt,
            cv::Point n_pos,
            cv::Size n_size, cv::Scalar n_color, bool n_autosize_mode,
            int n_face, double n_scale) {
-  type = "Text";
   text = txt;
   autosize_mode = n_autosize_mode;
   face = n_face;
@@ -26,9 +25,9 @@ void Text::Render() {
         int marginx = scale == scalex ? 0 : (int)((double)size.width * (scalex - scale) / scalex * 0.5);
         int marginy = scale == scaley ? 0 : (int)((double)size.height * (scaley - scale) / scaley * 0.5);
 
-        cv::putText(*parent_canvas, text, cv::Point(pos.x + marginx, pos.y + size.height - marginy), face, scale, color, 1, 8, false);
+        cv::putText(*parent_canvas, text, cv::Point(pos.x + marginx, pos.y + size.height - marginy), face, scale, color, scale, 8, false);
     }
     else {
-        cv::putText(*parent_canvas, text, pos, face, scale, color);
+        cv::putText(*parent_canvas, text, pos, face, scale, color, scale);
     }
 }

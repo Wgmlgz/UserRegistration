@@ -17,7 +17,6 @@ using namespace pawlin;
 
 class UIElement {
  public:
-  string type;
   cv::Point pos;
   cv::Size size;
   cv::Scalar color;
@@ -26,6 +25,6 @@ class UIElement {
             cv::Size n_size = cv::Size(100, 100),
             cv::Scalar n_color = CV_RGB(255, 255, 255));
   void SetParentCanvas(cv::Mat* n_parent_canvas);
-  void Render();
+  virtual void Render();
   virtual void Update(int key, int x, int y, int event);
 };

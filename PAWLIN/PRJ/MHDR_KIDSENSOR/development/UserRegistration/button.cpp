@@ -4,7 +4,6 @@
 
 Button::Button(cv::Point n_pos, cv::Size n_size, std::function <void()> n_func, cv::Scalar n_color, std::string n_text)
 {
-	type = "Button";
 	pos = n_pos;
 	size = n_size;
 	func = n_func;
