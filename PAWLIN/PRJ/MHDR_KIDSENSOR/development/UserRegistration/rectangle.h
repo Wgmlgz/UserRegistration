@@ -12,6 +12,10 @@
 #include "stdafx.h"
 #include "ui_element.h"
 
-class Rectangle : public UIElement {
-
+class RectangleLine : public UIElement {
+ public:
+  RectangleLine(cv::Point n_pos = cv::Point(100, 100),
+            cv::Size n_size = cv::Size(100, 100),
+            cv::Scalar n_color = CV_RGB(255, 255, 255));
+  void Render();
 };

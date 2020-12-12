@@ -34,6 +34,12 @@
     <Filter Include="Source Files\UiElements\image">
       <UniqueIdentifier>{6421846a-7d19-4ef9-a4d1-b535fe73fa84}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UiElements\button">
+      <UniqueIdentifier>{82688c47-fe75-4c93-87e2-22659afc0cef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UiElements\rectangle">
+      <UniqueIdentifier>{42c8a19e-19fd-40f6-a519-3c5579a06947}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -72,6 +78,12 @@
     <ClInclude Include="image.h">
       <Filter>Source Files\UiElements\image</Filter>
     </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>Source Files\UiElements\rectangle</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Source Files\UiElements\button</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -103,6 +115,12 @@
     </ClCompile>
     <ClCompile Include="image.cpp">
       <Filter>Source Files\UiElements\image</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangle.cpp">
+      <Filter>Source Files\UiElements\rectangle</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Source Files\UiElements\button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
