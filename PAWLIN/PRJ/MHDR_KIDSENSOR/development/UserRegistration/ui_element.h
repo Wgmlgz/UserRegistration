@@ -17,6 +17,7 @@ using namespace pawlin;
 
 class UIElement {
  public:
+  string type;
   cv::Point pos;
   cv::Size size;
   cv::Scalar color;

@@ -1,9 +1,12 @@
 #include "stdafx.h"
 #include "video_stream.h"
 
-VideoStream::VideoStream(std::string file) {
+VideoStream::VideoStream(std::string file, cv::Point n_pos, cv::Size n_size) {
+  type = "VideoStream";
+  pos = n_pos;
+  size = n_size;
   if (file == "") {
-    cap.open("Novogodniy_dudos.avi");
+    cap.open(0);
   } else {
     cap.open(file);
   }
@@ -12,9 +15,9 @@ VideoStream::VideoStream(std::string file) {
 void VideoStream::Render() {
   cv::Mat frame;
   cap >> frame;
-  printf("dsd");
-  frame.copyTo(*parent_canvas);
-  //parent_canvas->
-  //*parent_canvas = frame;
-  //cv::imshow("this is you, smile! :)", frame);
+
+  Image i(frame, pos, size);
+  i.SetParentCanvas(parent_canvas);
+  
+  i.Render();
 }
