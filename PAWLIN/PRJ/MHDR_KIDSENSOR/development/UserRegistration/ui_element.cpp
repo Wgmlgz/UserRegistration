@@ -13,5 +13,4 @@ void UIElement::SetParentCanvas(cv::Mat* n_parent_canvas) {
   parent_canvas = n_parent_canvas;
 }
 void UIElement::Update(int key, int x, int y, int event) {
-  printf("%i\n", x);
 }

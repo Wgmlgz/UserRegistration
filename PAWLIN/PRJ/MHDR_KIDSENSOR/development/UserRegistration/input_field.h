@@ -5,6 +5,7 @@
 using namespace pawlin;
 
 class InputField : public UIElement {
+  bool active;
   string prompt;
   string entered;
   string window_name;
@@ -19,7 +20,7 @@ class InputField : public UIElement {
   cv::Scalar background_color;
   cv::Scalar title_color;
 public:
-  InputField(const string& prompt, cv::Point pos, cv::Size size);
+  InputField(const string n_prompt, const string n_default = "enter something here", cv::Point pos = cv::Point(100, 100), cv::Size size = cv::Size(100, 100));
   void drawToRect(cv::Mat& mat, cv::Rect target, int face, int thickness, cv::Scalar color, const std::string& str);
   void drawMonospaceText(cv::Mat& mat, cv::Rect target, int face, int thickness, cv::Scalar color, const std::string& str, int char_size = 15);
   void drawCursor(cv::Mat& mat, cv::Point pos, int thickness, cv::Scalar color, const int cursor_pos, int char_size);

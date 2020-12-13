@@ -1,12 +1,9 @@
 ﻿#include "stdafx.h"
 #include "user_registration.h"
 
-
-
-
 void CreateStartCanvas() {
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), []() {CreateInputCanvas();}, CV_RGB(0, 0, 0), "Start registration"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), []() {CreateInputCanvas(input_titles, input_default);}, CV_RGB(0, 0, 0), "Start registration"));
   main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 + 30 - 50), cv::Size(200, 50), []() {CreateConfirmCanvas();}, CV_RGB(0, 0, 0), "Clear database"));
   main_canvas.Run();
 }
@@ -18,7 +15,7 @@ void CreateConfirmCanvas() {
 }
 void CreateRegistrationCanvas() {
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new Text("Wgmlgz, 54, attack heleckopter", cv::Point(50, 50), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
+  main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
   main_canvas.AddUIElement(new VideoStream("Novogodniy_dudos.avi", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300)));
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 50, 720 - 50 - 50), cv::Size(200, 50), []() {CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
   main_canvas.Run();
@@ -32,7 +29,7 @@ void CreateRegistrationSuccesCanvas(//std::vector<cv::Mat> images = nullptr
 		main_canvas.AddUIElement(new Image(cv::imread("da.png"),cv::Point(j * 300 + 50, i * 300 + 60), cv::Size(275, 275)));
     }
   }
-  main_canvas.AddUIElement(new Text("Wgmlgz, 54, attack heleckopter", cv::Point(50, 40), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
+  main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 40), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
   main_canvas.AddUIElement(new Text("Was successfully registered!", cv::Point(50, 720 - 30), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 100, 720 / 2 - 25), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
   main_canvas.Render();
@@ -44,12 +41,23 @@ void CreateRegistrationFailCanvas(string error) {
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 300, 720 / 2 - 25), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
   main_canvas.Run();
 }
-void CreateInputCanvas() {
+void CreateInputCanvas(std::vector<string> titles = {}, std::vector<string> defaults = {}) {
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50), cv::Size(200, 50), []() {CreateRegistrationCanvas();}, CV_RGB(0, 0, 0), "Submit"));
+  input_fields.clear();
+  for (int i = 0; i < titles.size(); ++i) {
+    auto tmp_input_field =
+        new InputField(titles[i], defaults[i], cv::Point(50, 100 + i * 100));
+    input_fields.push_back(tmp_input_field);
+    main_canvas.AddUIElement(tmp_input_field);
+  }
+  main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50), cv::Size(200, 50), []() {
+      for (auto i : input_fields) {
+        values.push_back(i->getText());
+	  }
+	  title_string = string(input_fields[0]->getText() + ", " + input_fields[1]->getText() + ", " + input_fields[2]->getText());
+	  CreateRegistrationCanvas();
+	  }, CV_RGB(0, 0, 0), "Submit"));
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 50, 720 - 50 - 50), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Cancel"));
-  
-  
   main_canvas.Run();
 }
 int process(const ArgParser &parser) {
@@ -58,7 +66,6 @@ int process(const ArgParser &parser) {
   //main_canvas.AddUIElement(new RectangleLine(cv::Point(100, 300), cv::Size(100, 100)));
   //main_canvas.AddUIElement(new Button(cv::Point(200, 400), cv::Size(200, 100), []() {printf("%s", "HI GAY!!!!\n"); }, CV_RGB(0, 0, 0)));
   //main_canvas.AddUIElement(new Text("8=====)"));
-  CreateRegistrationCanvas();
   CreateStartCanvas();
 
   return 0;

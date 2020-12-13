@@ -2,7 +2,7 @@
 #include "input_field.h"
 
 
-InputField::InputField(const string& n_prompt, cv::Point n_pos, cv::Size n_size) {
+InputField::InputField(const string n_prompt, const string n_default, cv::Point n_pos, cv::Size n_size) {
   prompt = n_prompt;
   pos = n_pos;
   size = n_size;
@@ -10,6 +10,8 @@ InputField::InputField(const string& n_prompt, cv::Point n_pos, cv::Size n_size)
   cursor_state = false;
   cursor_pos = 0;
   insert_state = false;
+  active = false;
+  entered = n_default;
   
   text_color = CV_RGB(120, 120, 120);
   cursor_color = CV_RGB(0, 255, 0);
@@ -46,78 +48,80 @@ void InputField::drawInsertCursor(cv::Mat& mat, cv::Point pos, int thickness, cv
 }
 void InputField::Update(int key, int x, int y, int event) {
   if (event == cv::EVENT_LBUTTONDOWN) {
-    if (y < pos.y + 20 && y > pos.y - 5) {
-      if (x > pos.x && x < pos.x + entered.size() * char_size + char_size) {
-        cursor_pos = (x - pos.x + char_size / 2) / char_size;
-        if (cursor_pos > static_cast<int>(entered.size())) cursor_pos = static_cast<int>(entered.size());
-        cursor_state = false;
+    if (y < pos.y + 20 && y > pos.y - 5 && x > pos.x &&
+        x < pos.x + entered.size() * char_size + char_size) {
+      cursor_pos = (x - pos.x + char_size / 2) / char_size;
+      if (cursor_pos > static_cast<int>(entered.size())) cursor_pos = static_cast<int>(entered.size());
+      cursor_state = false;
+      active = true;
+    } else {
+      active = false;
+    }
+  }
+  if (active) {
+    if (key == 27) {
+      entered = "";
+      return;
+    }
+    // ->
+    if (key == OPENCV_RIGHT_ARROW_CODE) {
+      cursor_state = false;
+      if (cursor_pos < entered.size()) cursor_pos++;
+    }
+    // <-
+    if (key == OPENCV_LEFT_ARROW_CODE) {
+      cursor_state = false;
+      if (cursor_pos > 0) cursor_pos--;
+    }
+    // backspace
+    if (key == 8) {
+      cursor_state = false;
+      if (cursor_pos > 0) entered.erase(entered.begin() + --cursor_pos);
+    }
+    // delite
+    if (key == 3014656) {
+      cursor_state = false;
+      if (cursor_pos < entered.size())
+        entered.erase(entered.begin() + cursor_pos);
+    }
+    // enter
+    if (key == 13) {
+      return;
+    }
+    // insert
+    if (key == 2949120) {
+      cursor_state = false;
+      insert_state = !insert_state;
+    }
+    // ASCII symbol entered
+    if (key >= 32 && key < 128) {
+      cursor_state = false;
+      if (insert_state) {
+        if (cursor_pos == entered.size())
+          entered.push_back((char)key);
+        else
+          entered[cursor_pos] = (char)key;
+      } else {
+        entered.insert(cursor_pos, 1, (char)key);
       }
+      cursor_pos++;
     }
-  }
-  if (key == 27) {
-    entered = "";
-    return;
-  }
-  // ->
-  if (key == OPENCV_RIGHT_ARROW_CODE) {
-    cursor_state = false;
-    if (cursor_pos < entered.size())cursor_pos++;
-  }
-  // <-
-  if (key == OPENCV_LEFT_ARROW_CODE) {
-    cursor_state = false;
-    if (cursor_pos > 0) cursor_pos--;
-  }
-  // backspace
-  if (key == 8) {
-    cursor_state = false;
-    if (cursor_pos > 0)
-      entered.erase(entered.begin() + --cursor_pos);
-  }
-  // delite
-  if (key == 3014656) {
-    cursor_state = false;
-    if (cursor_pos < entered.size()) entered.erase(entered.begin() + cursor_pos);
-  }
-  // enter
-  if (key == 13) {
-    return;
-  }
-  // insert
-  if (key == 2949120) {
-    cursor_state = false;
-    insert_state = !insert_state;
-  }
-  // ASCII symbol entered
-  if (key >= 32 && key < 128) {
-    cursor_state = false;
-    if (insert_state) {
-      if (cursor_pos == entered.size())
-        entered.push_back((char)key);
-      else
-        entered[cursor_pos] = (char)key;
-    }
-    else {
-      entered.insert(cursor_pos, 1, (char)key);
-    }
-    cursor_pos++;
   }
 }
 void InputField::Render() {
-    cursor_state = !cursor_state;  // cursor blink effect
-     // draw what user entered
-    cv::Rect rect(pos, cv::Size(((int)entered.size() + 1) * char_size + 1, static_cast<int>(char_size * 1.5)));
-    drawMonospaceText(*parent_canvas, rect, cv::FONT_HERSHEY_PLAIN, 1, text_color, entered);
-     // draw cursor
-    if (cursor_state) {
-      if (insert_state)
-        drawInsertCursor(*parent_canvas, pos, 1, cursor_color, cursor_pos, char_size);
-      else
-        drawCursor(*parent_canvas, pos, 1, cursor_color, cursor_pos, char_size);
-    }
-     // draw prompt
-    cv::Rect rect2(pos - cv::Point(0, 32), cv::Size((int)prompt.size() * 16, 16));
-    drawToRect(*parent_canvas, rect2, cv::FONT_HERSHEY_PLAIN, 1, title_color, prompt);
-    
+  cursor_state = !cursor_state;  // cursor blink effect
+  // draw what user entered
+  cv::Rect rect(pos, cv::Size(((int)entered.size() + 1) * char_size + 1, static_cast<int>(char_size * 1.5)));
+  drawMonospaceText(*parent_canvas, rect, cv::FONT_HERSHEY_PLAIN, 1, text_color, entered);
+   // draw cursor
+  if (active) {
+    if (insert_state)
+      drawInsertCursor(*parent_canvas, pos, 2, cursor_color, cursor_pos, char_size);
+    else
+      drawCursor(*parent_canvas, pos, 2, cursor_color, cursor_pos, char_size);
+  }
+  // draw prompt
+  cv::Rect rect2(pos - cv::Point(0, 32), cv::Size((int)prompt.size() * 16, 16));
+  drawToRect(*parent_canvas, rect2, cv::FONT_HERSHEY_PLAIN, 1, title_color, prompt);
 }
 string InputField::getText() const { return entered; }
