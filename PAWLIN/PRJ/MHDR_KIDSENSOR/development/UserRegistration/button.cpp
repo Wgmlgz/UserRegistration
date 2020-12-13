@@ -25,8 +25,10 @@ void Button::Render()
 void Button::Update(int key, int x, int y, int event)
 {
 	if (event == cv::EVENT_LBUTTONDOWN) {
+    printf(std::to_string(event).c_str());
 		if (x >= pos.x && pos.x + size.width >= x && y >= pos.y && pos.y + size.height >= y)
 		{
+            
 			func();
 		}
 	}

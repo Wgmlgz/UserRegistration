@@ -11,6 +11,12 @@ VideoStream::VideoStream(std::string file, cv::Point n_pos, cv::Size n_size) {
   }
 }
 
+void VideoStream::Update(int key, int x, int y, int event) {
+  printf("da");
+  Render();
+}
+
+
 void VideoStream::Render() {
   cv::Mat frame;
   cap >> frame;

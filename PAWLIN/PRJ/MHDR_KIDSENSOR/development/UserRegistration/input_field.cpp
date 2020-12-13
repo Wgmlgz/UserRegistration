@@ -79,7 +79,7 @@ void InputField::Update(int key, int x, int y, int event) {
       if (cursor_pos > 0) entered.erase(entered.begin() + --cursor_pos);
     }
     // delite
-    if (key == 3014656) {
+    if (key == 127) {
       cursor_state = false;
       if (cursor_pos < entered.size())
         entered.erase(entered.begin() + cursor_pos);

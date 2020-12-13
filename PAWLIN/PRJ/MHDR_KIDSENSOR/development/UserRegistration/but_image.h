@@ -13,6 +13,7 @@ public:
 	std::string text2;
 	int buttonHeight;
 	cv::Mat image;
+	bool fin = false;
 	ButImage(cv::Point n_pos = cv::Point(100, 100),
 			 cv::Size n_size = cv::Size(200, 200),
 			 std::function <void()> n_func1 = []() {printf("%s", "NO FUNCTION FOR BUTTON\n"); },
@@ -21,7 +22,8 @@ public:
 			 std::string n_text1 = "Sample text",
 			 std::string n_text2 = "Sample text",
 			 int buttonHeight = 20,
-			 cv::Mat n_image = cv::imread("empty.png"));
+			 cv::Mat n_image = cv::imread("empty.png"),
+			 bool n_fin = false);
     void Render();
 	void Update(int key, int x, int y, int event);
 	void ResetPhoto(cv::Mat n_image);

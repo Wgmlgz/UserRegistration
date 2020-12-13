@@ -14,4 +14,5 @@ class Text : public UIElement {
        int n_face = cv::FONT_HERSHEY_PLAIN,
       double n_scale = 1);
   void Render();
+  void Update();
 };

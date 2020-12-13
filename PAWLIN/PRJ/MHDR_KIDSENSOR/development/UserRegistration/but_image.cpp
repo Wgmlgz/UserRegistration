@@ -6,7 +6,7 @@
 ButImage::ButImage(cv::Point n_pos, cv::Size n_size,
                    std::function<void()> n_func1, std::function<void()> n_func2,
                    cv::Scalar n_color, std::string n_text1, std::string n_text2,
-                   int n_buttonHeight, cv::Mat n_image) {
+                   int n_buttonHeight, cv::Mat n_image, bool n_fin) {
   pos = n_pos;
   size = n_size;
   func1 = n_func1;
@@ -16,6 +16,7 @@ ButImage::ButImage(cv::Point n_pos, cv::Size n_size,
   text2 = n_text2;
   buttonHeight = n_buttonHeight;
   image = n_image;
+  fin = n_fin;
 }
 
 void ButImage::Render() {
@@ -28,7 +29,7 @@ void ButImage::Render() {
                    cv::Size(size.width, size.height - buttonHeight * 2));
   img.SetParentCanvas(parent_canvas);
   img.Render();
-
+  if (fin) return;
   auto button2 =
       Button(cv::Point(pos.x, pos.y + size.height - buttonHeight),
              cv::Size(size.width, buttonHeight), func2, color, text2);

@@ -46,7 +46,13 @@
     <Filter Include="Source Files\UiElements\but_image">
       <UniqueIdentifier>{d6c99b80-f6f1-4eec-9c4b-9cd7c4c8b278}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\input_field">
+    <Filter Include="Source Files\Database">
+      <UniqueIdentifier>{f41c1ca5-2f75-4625-a141-cf12c29c27d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TMP">
+      <UniqueIdentifier>{83077d4b-b8f8-4006-8e0a-e136c8f1ee5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UiElements\input_field">
       <UniqueIdentifier>{d960d5f7-8354-410d-9f44-c19d78a44e4c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -103,7 +109,16 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="input_field.h">
-      <Filter>Source Files\input_field</Filter>
+      <Filter>Source Files\UiElements\input_field</Filter>
+    </ClInclude>
+    <ClInclude Include="database.h">
+      <Filter>Source Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="user.h">
+      <Filter>Source Files\Database</Filter>
+    </ClInclude>
+    <ClInclude Include="image_provider.h">
+      <Filter>Source Files\TMP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +165,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="input_field.cpp">
-      <Filter>Source Files\input_field</Filter>
+      <Filter>Source Files\UiElements\input_field</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

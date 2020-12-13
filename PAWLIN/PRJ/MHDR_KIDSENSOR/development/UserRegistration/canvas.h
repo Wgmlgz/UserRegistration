@@ -5,6 +5,7 @@
 #include <opencv2/videoio.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/video.hpp>
+#include <opencv2/highgui/highgui.hpp>
 
 #include <PWNGeneral/ArgParser.h>
 #include <PWNGeneral/pwnutil.h>
@@ -14,7 +15,8 @@
 
 using namespace pawlin;
 
-class Canvas : public CvInteractWindowBase {
+class Canvas {
+ public:
   string prompt;
   string window_name;
   cv::Size window_size;
@@ -24,24 +26,19 @@ class Canvas : public CvInteractWindowBase {
   cv::Mat canvas;
 
   vector<UIElement*> ui_elements;
-
+ 
   // input
   int key, mouse_x, mouse_y, mouse_event;
 
- public:
+  bool was_cleared;
+
   Canvas(cv::Scalar color = CV_RGB(255, 255, 255));
 
   void Run(int wait = 1);
   void Render();
-  void Update(int wait = 1);
+  bool Update(int wait = 1);
 
   void AddUIElement(UIElement* element);
   void ClearCanvas();
-
-  virtual void updateClick(int x, int y, int event, int flags) override {
-    mouse_x = x;
-    mouse_y = y;
-    mouse_event = event;
-    Update();
-  }
+  void Canvas::CallBackFunc(int event, int x, int y, int flags);
 };

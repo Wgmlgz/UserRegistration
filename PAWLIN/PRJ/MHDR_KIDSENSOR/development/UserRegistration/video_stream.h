@@ -9,4 +9,5 @@ class VideoStream : public UIElement {
   VideoStream(std::string file = "", cv::Point n_pos = cv::Point(100, 100),
               cv::Size n_size = cv::Size(100, 100));
   void Render();
+  void Update(int key, int x, int y, int event);
 };

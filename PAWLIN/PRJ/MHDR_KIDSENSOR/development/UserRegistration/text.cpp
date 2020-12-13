@@ -31,3 +31,4 @@ void Text::Render() {
         cv::putText(*parent_canvas, text, pos, face, scale, color, scale);
     }
 }
+void Text::Update() {}

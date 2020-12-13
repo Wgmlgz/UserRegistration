@@ -5,19 +5,30 @@
 #include "rectangle.h"
 #include "text.h"
 #include "button.h"
+#include "input_field.h"
 
-Canvas::Canvas(cv::Scalar color)
-    : prompt(prompt),
-      CvInteractWindowBase("User registration", cv::Size(1280, 720), CV_8UC3) {
-  canvas = cv::Mat::zeros(canv_size, canv_type);
+
+void Canvas::CallBackFunc(int event, int x, int y, int flags) {
+  mouse_x = x;
+  mouse_y = y;
+  mouse_event = event;
+  Update();
+}
+Canvas::Canvas(cv::Scalar color) {
+  window_name = "User registration";
+  cv::namedWindow(window_name, cv::WINDOW_AUTOSIZE);
+  canvas = cv::Mat::zeros(cv::Size(1280, 720), 16);
   pos = cv::Point(200, 300);
   background_color = color;
 }
 
 void Canvas::Run(int wait) {
   for (;;) {
-    Update(wait);
-    Render();
+    bool do_render = Update(wait);
+    if (do_render) {
+      Render();
+    }
+    cv::imshow(window_name, canvas);
   }
 }
 
@@ -29,15 +40,32 @@ void Canvas::Render() {
   }
 }
 
-void Canvas::Update(int wait) {
-  key = pawlin::debugImg(winname, canvas, 1, wait, false);
+bool Canvas::Update(int wait) {
+  key = cv::waitKey(wait);
+  bool flag = false;
   for (auto i : ui_elements) {
-    i->Update(key, mouse_x, mouse_y, mouse_event);
+    if (was_cleared) {
+      was_cleared = false;
+      return true;
+    }
+    i->Update(
+        key, 
+        mouse_x, 
+        mouse_y, 
+        mouse_event);
+    if (static_cast<InputField*>(i) != nullptr) {
+      flag = true;
+    }
   }
 }
 
 void Canvas::ClearCanvas() {
+  for (int i = 0; i < ui_elements.size(); ++i) {
+    //delete ui_elements[i];
+  }
+  //ui_elements.resize(0);
   ui_elements.clear();
+  was_cleared = true;
 }
 
 void Canvas::AddUIElement(UIElement* element) {

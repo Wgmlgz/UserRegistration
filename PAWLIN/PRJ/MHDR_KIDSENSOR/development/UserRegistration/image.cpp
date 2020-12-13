@@ -13,10 +13,7 @@ void Image::Render() {
   cv::Mat tmp = image;
   cv::resize(tmp, tmp, size);
 
-  for (int i = pos.x; i < size.width + pos.x; ++i) {
-    for (int j = pos.y; j < size.height + pos.y; ++j) {
-      parent_canvas->at<cv::Vec3b>(cv::Point(i, j)) =
-          tmp.at<cv::Vec3b>(cv::Point(i - pos.x, j - pos.y));
-    }
-  }
+  cv::Rect roi(pos, size);
+  cv::Mat destinationROI = (*parent_canvas)(roi);
+  tmp.copyTo(destinationROI);
 }
