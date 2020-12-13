@@ -154,11 +154,13 @@
     <ClInclude Include="but_image.h" />
     <ClInclude Include="canvas.h" />
     <ClInclude Include="image.h" />
+    <ClInclude Include="input_field.h" />
     <ClInclude Include="rectangle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="ui_element.h" />
+    <ClInclude Include="user_registration.h" />
     <ClInclude Include="video_stream.h" />
   </ItemGroup>
   <ItemGroup>
@@ -170,10 +172,11 @@
     <ClCompile Include="but_image.cpp" />
     <ClCompile Include="canvas.cpp" />
     <ClCompile Include="image.cpp" />
+    <ClCompile Include="input_field.cpp" />
     <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="ui_element.cpp" />
-    <ClCompile Include="userregistration.cpp" />
+    <ClCompile Include="user_registration.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
