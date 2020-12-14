@@ -4,7 +4,7 @@
 VideoStream::VideoStream(std::string file, cv::Point n_pos, cv::Size n_size) {
   pos = n_pos;
   size = n_size;
-  if (file == "") {
+  if (file == "" || true) {
     cap.open(0);
   } else {
     cap.open(file);
@@ -12,7 +12,6 @@ VideoStream::VideoStream(std::string file, cv::Point n_pos, cv::Size n_size) {
 }
 
 void VideoStream::Update(int key, int x, int y, int event) {
-  printf("da");
   Render();
 }
 

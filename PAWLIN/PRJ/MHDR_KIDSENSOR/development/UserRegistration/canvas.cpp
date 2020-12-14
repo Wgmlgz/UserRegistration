@@ -41,7 +41,7 @@ void Canvas::Render() {
 }
 
 bool Canvas::Update(int wait) {
-  key = cv::waitKey(wait);
+  key = cv::waitKeyEx(wait);
   bool flag = false;
   for (auto i : ui_elements) {
     if (was_cleared) {
