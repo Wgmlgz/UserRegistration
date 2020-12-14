@@ -60,10 +60,6 @@ bool Canvas::Update(int wait) {
 }
 
 void Canvas::ClearCanvas() {
-  for (int i = 0; i < ui_elements.size(); ++i) {
-    //delete ui_elements[i];
-  }
-  //ui_elements.resize(0);
   ui_elements.clear();
   was_cleared = true;
 }

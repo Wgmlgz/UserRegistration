@@ -15,7 +15,6 @@ void VideoStream::Update(int key, int x, int y, int event) {
   Render();
 }
 
-
 void VideoStream::Render() {
   cv::Mat frame;
   cap >> frame;

@@ -29,19 +29,19 @@ void CreateConfirmCanvas() {
 	  }, CV_RGB(200, 0, 0), "Confirm"));
 }
 void CreateRegistrationCanvas(bool inc, bool start) {
+  static VideoStream *vid = nullptr;
   static int pos = 0;
-  if (images.size() == 0 || start)
-  {
+  if (start) vid = new VideoStream("Novogodniy_dudos.avi", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300));
+  if (images.size() == 0 || start) {
       images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
-      pos = 0;
+      pos = 0;      
   }
-  if (inc)
-  {
+  if (inc) {
     ++pos;
   }
-  
+
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new VideoStream("Novogodniy_dudos.avi", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300)));
+  main_canvas.AddUIElement(vid);
   main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
   if(pos >= 5)
     main_canvas.AddUIElement(new Button(cv::Point(1280 - 40 - 420, 720 - 50 - 50), cv::Size(200, 50), []() {CreateRegistrationSuccesCanvas(); }, CV_RGB(0, 0, 0), "Submit"));

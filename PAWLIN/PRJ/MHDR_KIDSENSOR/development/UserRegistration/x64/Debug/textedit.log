@@ -1,3 +1,7 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (x64\Debug\) contains files shared from another project (textedit.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  video_stream.cpp
+  user_registration.cpp
+C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(308,37): warning C4003: not enough arguments for function-like macro invocation 'max'
+C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(430,62): warning C4003: not enough arguments for function-like macro invocation 'max'
+C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(205,75): warning C4003: not enough arguments for function-like macro invocation 'max'
+C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(271,75): warning C4003: not enough arguments for function-like macro invocation 'max'
   textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.exe
