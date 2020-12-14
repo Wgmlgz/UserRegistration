@@ -31,10 +31,10 @@ void CreateConfirmCanvas() {
 void CreateRegistrationCanvas(bool inc, bool start) {
   static VideoStream *vid = nullptr;
   static int pos = 0;
-  if (start) vid = new VideoStream("Novogodniy_dudos.avi", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300));
+  if (start) vid = new VideoStream("", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300));
   if (images.size() == 0 || start) {
-      images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
-      pos = 0;      
+    images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
+    pos = 0;
   }
   if (inc) {
     ++pos;
@@ -60,13 +60,14 @@ void CreateRegistrationCanvas(bool inc, bool start) {
   }
 }
 
-void CreateRegistrationSuccesCanvas(//std::vector<cv::Mat> images = nullptr
-) {
+void CreateRegistrationSuccesCanvas() {
   main_canvas.ClearCanvas();
   //auto cur_img = images.begin();
+  int k = 0;
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j) {
-		main_canvas.AddUIElement(new Image(cv::imread("da.png"),cv::Point(j * 300 + 50, i * 300 + 60), cv::Size(275, 275)));
+	  main_canvas.AddUIElement(new Image(images[k],cv::Point(j * 300 + 50, i * 300 + 60), cv::Size(275, 275)));
+      ++k;
     }
   }
   main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 40), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
@@ -102,11 +103,6 @@ void CallBackFunc(int event, int x, int y, int flags, void *userdata) {
   main_canvas.CallBackFunc(event, x, y, flags);
 }
 int process(const ArgParser &parser) {
-  //main_canvas.AddUIElement(new VideoStream("Novogodniy_dudos.avi", cv::Point(200, 100)));
-  //main_canvas.AddUIElement(new Image(cv::imread("da.png")));
-  //main_canvas.AddUIElement(new RectangleLine(cv::Point(100, 300), cv::Size(100, 100)));
-  //main_canvas.AddUIElement(new Button(cv::Point(200, 400), cv::Size(200, 100), []() {printf("%s", "HI GAY!!!!\n"); }, CV_RGB(0, 0, 0)));
-  //main_canvas.AddUIElement(new Text("8=====)"));
   cv::setMouseCallback(main_canvas.window_name, CallBackFunc);
   imageProvider = new IImageProvider;
   CreateStartCanvas();

@@ -46,5 +46,5 @@ void CreateConfirmCanvas();
 void CreateRegistrationCanvas(bool inc = false, bool start = false);
 void CreateRegistrationSuccesCanvas();
 void CreateTextCanvas(string text, cv::Scalar color = CV_RGB(0, 0, 0));
-void CreateRegistrationFailCanvas();
+void CreateRegistrationFailCanvas(string error);
 void CreateInputCanvas(std::vector<string>, std::vector<string>);

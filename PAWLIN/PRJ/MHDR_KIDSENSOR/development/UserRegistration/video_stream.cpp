@@ -4,11 +4,7 @@
 VideoStream::VideoStream(std::string file, cv::Point n_pos, cv::Size n_size) {
   pos = n_pos;
   size = n_size;
-  if (file == "" || true) {
-    cap.open(0);
-  } else {
-    cap.open(file);
-  }
+  cap.open(0);
 }
 
 void VideoStream::Update(int key, int x, int y, int event) {
