@@ -11,7 +11,19 @@
 #include <vector>
 
 #include "stdafx.h"
-#include "user.h"
+
+class User {
+ public:
+  string name, age, gender;
+  std::vector<cv::Mat> images;
+  User(string n_name, string n_age, string n_gender,
+       std::vector<cv::Mat> n_images) {
+    name = n_name;
+    age = n_age;
+    gender = n_gender;
+    images = n_images;
+  }
+};
 
 class Database {
  public:

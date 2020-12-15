@@ -23,8 +23,14 @@ class UIElement {
   cv::Mat* parent_canvas;
   UIElement(cv::Point n_pos = cv::Point(100, 100),
             cv::Size n_size = cv::Size(100, 100),
-            cv::Scalar n_color = CV_RGB(255, 255, 255));
-  void SetParentCanvas(cv::Mat* n_parent_canvas);
-  virtual void Render();
-  virtual void Update(int key, int x, int y, int event);
+            cv::Scalar n_color = CV_RGB(255, 255, 255)) {
+    pos = n_pos;
+    size = n_size;
+    color = n_color;
+  }
+  void SetParentCanvas(cv::Mat* n_parent_canvas) {
+    parent_canvas = n_parent_canvas;
+  }
+  virtual void Render() { cv::circle(*parent_canvas, pos, 20, color); }
+  virtual void Update(int key, int x, int y, int event) {}
 };

@@ -22,38 +22,14 @@
     <Filter Include="Source Files\PWNIP\PWNOpenCvExt">
       <UniqueIdentifier>{9c21728c-e7c7-4df2-8a3b-17f5645e571c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\UiElements">
-      <UniqueIdentifier>{ca1cb58f-8fad-4668-8020-32ea00a2afa5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Canvas">
-      <UniqueIdentifier>{7342898f-bc38-4f70-b910-f6647d023f1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\video_stream">
-      <UniqueIdentifier>{392895b6-0a3b-45c0-a2b2-089b92396caa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\image">
-      <UniqueIdentifier>{6421846a-7d19-4ef9-a4d1-b535fe73fa84}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\button">
-      <UniqueIdentifier>{82688c47-fe75-4c93-87e2-22659afc0cef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\rectangle">
-      <UniqueIdentifier>{42c8a19e-19fd-40f6-a519-3c5579a06947}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\text">
-      <UniqueIdentifier>{3fe71c38-40c7-4849-96f3-faa6d5bb825e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\UiElements\but_image">
-      <UniqueIdentifier>{d6c99b80-f6f1-4eec-9c4b-9cd7c4c8b278}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Database">
       <UniqueIdentifier>{f41c1ca5-2f75-4625-a141-cf12c29c27d7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\TMP">
       <UniqueIdentifier>{83077d4b-b8f8-4006-8e0a-e136c8f1ee5c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\UiElements\input_field">
-      <UniqueIdentifier>{d960d5f7-8354-410d-9f44-c19d78a44e4c}</UniqueIdentifier>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{7342898f-bc38-4f70-b910-f6647d023f1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -82,43 +58,37 @@
       <Filter>Source Files\PWNIP\PWNOpenCvExt</Filter>
     </ClInclude>
     <ClInclude Include="canvas.h">
-      <Filter>Source Files\Canvas</Filter>
-    </ClInclude>
-    <ClInclude Include="ui_element.h">
-      <Filter>Source Files\UiElements</Filter>
-    </ClInclude>
-    <ClInclude Include="video_stream.h">
-      <Filter>Source Files\UiElements\video_stream</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>Source Files\UiElements\image</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>Source Files\UiElements\rectangle</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>Source Files\UiElements\button</Filter>
-    </ClInclude>
-    <ClInclude Include="text.h">
-      <Filter>Source Files\UiElements\text</Filter>
-    </ClInclude>
-    <ClInclude Include="but_image.h">
-      <Filter>Source Files\UiElements\but_image</Filter>
-    </ClInclude>
-    <ClInclude Include="user_registration.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input_field.h">
-      <Filter>Source Files\UiElements\input_field</Filter>
+      <Filter>Source Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="database.h">
       <Filter>Source Files\Database</Filter>
     </ClInclude>
-    <ClInclude Include="user.h">
-      <Filter>Source Files\Database</Filter>
-    </ClInclude>
     <ClInclude Include="image_provider.h">
       <Filter>Source Files\TMP</Filter>
+    </ClInclude>
+    <ClInclude Include="but_image.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="input_field.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="text.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_element.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="video_stream.h">
+      <Filter>Source Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -137,40 +107,13 @@
     <ClCompile Include="..\..\..\..\IP\PWNOpenCvExt\cvmathdrawingnew.cpp">
       <Filter>Source Files\PWNIP\PWNOpenCvExt</Filter>
     </ClCompile>
-    <ClCompile Include="canvas.cpp">
-      <Filter>Source Files\Canvas</Filter>
-    </ClCompile>
-    <ClCompile Include="ui_element.cpp">
-      <Filter>Source Files\UiElements</Filter>
-    </ClCompile>
-    <ClCompile Include="video_stream.cpp">
-      <Filter>Source Files\UiElements\video_stream</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Source Files\UiElements\image</Filter>
-    </ClCompile>
-    <ClCompile Include="rectangle.cpp">
-      <Filter>Source Files\UiElements\rectangle</Filter>
-    </ClCompile>
-    <ClCompile Include="button.cpp">
-      <Filter>Source Files\UiElements\button</Filter>
-    </ClCompile>
-    <ClCompile Include="text.cpp">
-      <Filter>Source Files\UiElements\text</Filter>
-    </ClCompile>
-    <ClCompile Include="but_image.cpp">
-      <Filter>Source Files\UiElements\but_image</Filter>
-    </ClCompile>
     <ClCompile Include="user_registration.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="input_field.cpp">
-      <Filter>Source Files\UiElements\input_field</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Users\Wgmlgz\Desktop\Novogodniy_dudos.avi">
-      <Filter>Source Files\UiElements\video_stream</Filter>
+      <Filter>Source Files\UI</Filter>
     </None>
   </ItemGroup>
 </Project>

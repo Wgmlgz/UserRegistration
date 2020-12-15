@@ -162,8 +162,6 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="ui_element.h" />
-    <ClInclude Include="user.h" />
-    <ClInclude Include="user_registration.h" />
     <ClInclude Include="video_stream.h" />
   </ItemGroup>
   <ItemGroup>
@@ -171,14 +169,6 @@
     <ClCompile Include="..\..\..\..\IP\PWNGeneral\PWNExceptionBasic.cpp" />
     <ClCompile Include="..\..\..\..\IP\PWNGeneral\pwnutil.cpp" />
     <ClCompile Include="..\..\..\..\IP\PWNOpenCvExt\cvmathdrawingnew.cpp" />
-    <ClCompile Include="button.cpp" />
-    <ClCompile Include="but_image.cpp" />
-    <ClCompile Include="canvas.cpp" />
-    <ClCompile Include="image.cpp" />
-    <ClCompile Include="input_field.cpp" />
-    <ClCompile Include="rectangle.cpp" />
-    <ClCompile Include="text.cpp" />
-    <ClCompile Include="ui_element.cpp" />
     <ClCompile Include="user_registration.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -186,7 +176,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="video_stream.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\Users\Wgmlgz\Desktop\Novogodniy_dudos.avi" />
