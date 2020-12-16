@@ -34,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="config.txt">
+      <Filter>Source Files\TMP</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -66,29 +69,11 @@
     <ClInclude Include="image_provider.h">
       <Filter>Source Files\TMP</Filter>
     </ClInclude>
-    <ClInclude Include="but_image.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="input_field.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="rectangle.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="text.h">
-      <Filter>Source Files\UI</Filter>
-    </ClInclude>
     <ClInclude Include="ui_element.h">
       <Filter>Source Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="video_stream.h">
-      <Filter>Source Files\UI</Filter>
+    <ClInclude Include="cfg_parser.h">
+      <Filter>Source Files\TMP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

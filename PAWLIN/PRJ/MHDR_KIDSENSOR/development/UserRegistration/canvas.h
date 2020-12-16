@@ -12,12 +12,7 @@
 
 #include "stdafx.h"
 #include "ui_element.h"
-#include "video_stream.h"
-#include "image.h"
-#include "rectangle.h"
-#include "text.h"
-#include "button.h"
-#include "input_field.h"
+
 using namespace pawlin;
 
 class Canvas {
@@ -31,6 +26,7 @@ class Canvas {
   cv::Mat canvas;
 
   vector<UIElement*> ui_elements;
+  vector<UIElement*> old_ui_elements;
 
   // input
   int key, mouse_x, mouse_y, mouse_event;
@@ -64,14 +60,26 @@ class Canvas {
   bool Update(int wait = 1) {
     key = cv::waitKeyEx(wait);
     bool flag = false;
+    bool flag2 = true;
     for (auto i : ui_elements) {
       if (was_cleared) {
         was_cleared = false;
+        //for (UIElement* i : old_ui_elements) delete i;
         return true;
       }
       i->Update(key, mouse_x, mouse_y, mouse_event);
       if (static_cast<InputField*>(i) != nullptr) {
         flag = true;
+        if (static_cast<InputField*>(i)->is_awake == false) flag2 = false;
+      }
+      if (flag && flag2) {
+        //AddUIElement(new Button(
+        //    cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50),
+        //    cv::Size(200, 50),
+        //    []() {
+        //      
+        //    },
+        //    CV_RGB(0, 0, 0), "Submit"));
       }
     }
   }
@@ -81,6 +89,7 @@ class Canvas {
   }
 
   void ClearCanvas() {
+    old_ui_elements = ui_elements;
     ui_elements.clear();
     was_cleared = true;
   }

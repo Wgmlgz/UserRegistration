@@ -1,4 +1,2 @@
-C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\TextEdit\x64\Debug\textedit.exe
-C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\TextEdit\x64\Debug\textedit.pdb
 C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.exe
 C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.pdb

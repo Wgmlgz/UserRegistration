@@ -4,7 +4,7 @@ C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(308,37): wa
 C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(430,62): warning C4003: not enough arguments for function-like macro invocation 'max'
 C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(205,75): warning C4003: not enough arguments for function-like macro invocation 'max'
 C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(271,75): warning C4003: not enough arguments for function-like macro invocation 'max'
-C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\text.h(41,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\text.h(43,66): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\canvas.h(77): warning C4715: 'Canvas::Update': not all control paths return a value
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(94,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(96,66): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\canvas.h(85): warning C4715: 'Canvas::Update': not all control paths return a value
   textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.exe

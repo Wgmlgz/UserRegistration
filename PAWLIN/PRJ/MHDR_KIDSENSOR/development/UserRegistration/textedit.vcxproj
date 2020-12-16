@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <Text Include="config.txt" />
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -150,19 +151,13 @@
     <ClInclude Include="..\..\..\..\IP\PWNGeneral\pwnutil.h" />
     <ClInclude Include="..\..\..\..\IP\PWNOpenCvExt\cvdrawingcompat.h" />
     <ClInclude Include="..\..\..\..\IP\PWNOpenCvExt\cvmathdrawingnew.h" />
-    <ClInclude Include="button.h" />
-    <ClInclude Include="but_image.h" />
     <ClInclude Include="canvas.h" />
+    <ClInclude Include="cfg_parser.h" />
     <ClInclude Include="database.h" />
-    <ClInclude Include="image.h" />
     <ClInclude Include="image_provider.h" />
-    <ClInclude Include="input_field.h" />
-    <ClInclude Include="rectangle.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="text.h" />
     <ClInclude Include="ui_element.h" />
-    <ClInclude Include="video_stream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\IP\PWNGeneral\ArgParser.cpp" />
