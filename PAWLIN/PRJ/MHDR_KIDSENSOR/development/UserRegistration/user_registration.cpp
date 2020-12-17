@@ -26,48 +26,30 @@
 
 #include "cfg_parser.h"
 
-using namespace pawlin;
-
-bool DEBUG;
-
 Canvas main_canvas;
-CfgParser cfgp;
 
-std::vector<string> input_titles;
-std::vector<string> input_default;
-std::vector<string> values;
-
-std::vector<cv::Mat> images;
-
-string title_string;
-
-Database database;
-
-IImageProvider *imageProvider;
-
-std::vector<InputField *> input_fields;
-void CreateStartCanvas();
+void CreateStartCanvas(std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default);
 void CreateConfirmCanvas();
-void CreateRegistrationCanvas(bool inc = false, bool start = false);
-void CreateRegistrationSuccesCanvas();
-void CreateTextCanvas(string text, cv::Scalar color = CV_RGB(0, 0, 0));
-void CreateRegistrationFailCanvas(string error);
+void CreateRegistrationCanvas(std::vector<cv::Mat> images, bool DEBUG, string title_string, CfgParser cfgp, IImageProvider* imageProvider, bool inc = false, bool start = false);
+void CreateRegistrationSuccesCanvas(std::vector<cv::Mat> images, string title_string);
+void CreateTextCanvas(std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default, string text, cv::Scalar color = CV_RGB(0, 0, 0));
+void CreateRegistrationFailCanvas(string error, std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default);
 void CreateInputCanvas(std::vector<string>, std::vector<string>);
 
-void CreateStartCanvas() {
+void CreateStartCanvas(std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default) {
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), []() {CreateInputCanvas(input_titles, input_default);}, CV_RGB(0, 0, 0), "Start registration"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), [input_fields, input_titles, input_default]() {CreateInputCanvas(input_fields, input_titles, input_default);}, CV_RGB(0, 0, 0), "Start registration"));
   main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 + 30 - 50), cv::Size(200, 50), []() {CreateConfirmCanvas();}, CV_RGB(0, 0, 0), "Clear database"));
 }
-void CreateTextCanvas(string text, cv::Scalar color) {
+void CreateTextCanvas(std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default, string text, cv::Scalar color) {
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text(text, cv::Point(1280 / 2 - 500, 720 / 2 - 25), cv::Size(1000, 50), color, true, 1, 2));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 - 100), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 - 100), cv::Size(200, 50), [input_fields, input_titles, input_default]() {CreateStartCanvas(input_fields, input_titles, input_default);}, CV_RGB(0, 0, 0), "Back to main menu"));
 }
-void CreateConfirmCanvas() {
+void CreateConfirmCanvas(Database database, bool DEBUG, std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default) {
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text("Are you sure you want to clear the database?", cv::Point(1280 / 2 - 500, 720 / 2 - 25), cv::Size(1000, 50), CV_RGB(0, 0, 0), true, 1, 2));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 + 120, 720 / 2 - 50 + 100), cv::Size(200, 50), []() {CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 + 120, 720 / 2 - 50 + 100), cv::Size(200, 50), [input_fields, input_titles, input_default]() {CreateStartCanvas(input_fields, input_titles, input_default); }, CV_RGB(0, 0, 0), "Cancel"));
   main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 - 120, 720 / 2 - 50 + 100), cv::Size(200, 50), []() {
 	try {
       database.users.clear();
@@ -83,7 +65,7 @@ void CreateConfirmCanvas() {
 	}
   }, CV_RGB(200, 0, 0), "Confirm"));
 }
-void CreateRegistrationCanvas(bool inc, bool start) {
+void CreateRegistrationCanvas(std::vector<cv::Mat> images, bool DEBUG, string title_string, CfgParser cfgp, IImageProvider* imageProvider, bool inc, bool start) {
   static VideoStream *vid = nullptr;
   static int pos = 0;
   if (start) vid = new VideoStream("", cv::Point(1280 - 300 - 50, 100), cv::Size(300, 300));
@@ -129,7 +111,7 @@ void CreateRegistrationCanvas(bool inc, bool start) {
   }
 }
 
-void CreateRegistrationSuccesCanvas() {
+void CreateRegistrationSuccesCanvas(std::vector<cv::Mat> images, string title_string) {
   main_canvas.ClearCanvas();
   //auto cur_img = images.begin();
   int k = 0;
@@ -144,12 +126,12 @@ void CreateRegistrationSuccesCanvas() {
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 100, 720 / 2 - 25), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
   main_canvas.Render();
 }
-void CreateRegistrationFailCanvas(string error) {
+void CreateRegistrationFailCanvas(string error, std::vector<InputField*> input_fields, std::vector<string> input_titles, std::vector<string> input_default) {
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text(error, cv::Point(300, 720 / 2 - 200), cv::Size(400, 400), CV_RGB(200, 0, 0), true, 1, 2));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 300, 720 / 2 - 25), cv::Size(200, 50), []() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 300, 720 / 2 - 25), cv::Size(200, 50), [input_fields, input_titles, input_default]() {CreateStartCanvas(input_fields, input_titles, input_default);}, CV_RGB(0, 0, 0), "Back to main menu"));
 }
-void CreateInputCanvas(std::vector<string> titles = {}, std::vector<string> defaults = {}) {
+void CreateInputCanvas(std::vector<InputField*> input_fields, std::vector<string> titles = {}, std::vector<string> defaults = {}) {
   main_canvas.ClearCanvas();
   input_fields.clear();
   for (int i = 0; i < titles.size(); ++i) {
@@ -171,7 +153,7 @@ void CreateInputCanvas(std::vector<string> titles = {}, std::vector<string> defa
 void CallBackFunc(int event, int x, int y, int flags, void *userdata) {
   main_canvas.CallBackFunc(event, x, y, flags);
 }
-int process(const ArgParser &parser) {
+int process(const ArgParser &parser, Canvas main_canvas, IImageProvider* imageProvider, bool DEBUG, CfgParser cfgp, std::vector<string> input_titles, std::vector<string> input_default) {
   cv::setMouseCallback(main_canvas.window_name, CallBackFunc);
   imageProvider = new IImageProvider;
   DEBUG = cfgp.values.find(std::string("debug"))->second[0] == std::string("true");
@@ -187,9 +169,28 @@ int process(const ArgParser &parser) {
 
 int main(int argc, char *argv[])
 {
+  using namespace pawlin;
+
+  bool DEBUG;
+
+  CfgParser cfgp;
+
+  std::vector<string> input_titles;
+  std::vector<string> input_default;
+  std::vector<string> values;
+
+  std::vector<cv::Mat> images;
+
+  string title_string;
+
+  Database database;
+
+  IImageProvider* imageProvider;
+
+  std::vector<InputField*> input_fields;
 	try {
 		ArgParser parser(argc, argv);
-		return process(parser);
+		return process(parser, main_canvas, imageProvider, DEBUG, cfgp, input_titles, input_default);
 	}
 	catch (std::exception e) {
 		printf("Exception occured: %s\n", e.what());
