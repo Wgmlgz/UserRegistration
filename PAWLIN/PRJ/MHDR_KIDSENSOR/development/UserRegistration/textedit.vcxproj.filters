@@ -97,7 +97,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\Users\Wgmlgz\Desktop\Novogodniy_dudos.avi">
+    <None Include="..\..\..\..\..\..\Users\Wgmlgz\Desktop\dudos.avi">
       <Filter>Source Files\UI</Filter>
     </None>
   </ItemGroup>

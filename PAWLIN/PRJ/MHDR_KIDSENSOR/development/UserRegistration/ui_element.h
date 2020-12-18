@@ -14,6 +14,7 @@
 #include <iostream>
 #include <chrono>
 #include <ctime>
+#include <functional>
 
 using namespace pawlin;
 
@@ -177,6 +178,8 @@ class InputField : public UIElement {
 
  public:
   bool is_awake;
+  //std::function<void()> on_click;
+  std::vector<InputField*> input_fields;
   InputField(bool n_active, const string n_prompt,
              const string n_default = "enter something here",
              cv::Point n_pos = cv::Point(100, 100),
@@ -185,7 +188,7 @@ class InputField : public UIElement {
     pos = n_pos;
     size = n_size;
     char_size = 15;
-    ActivateCursor();
+    Activate();
     cursor_pos = 0;
     insert_state = false;
     active = n_active;
@@ -245,7 +248,7 @@ class InputField : public UIElement {
                  cv::Point(pos.x + char_size * (cursor_pos + 1), pos.y + 25)),
         color, thickness);
   }
-  void ActivateCursor() {
+  void Activate() {
     t_start = std::chrono::high_resolution_clock::now();
     cursor_state = true;
     active = true;
@@ -255,6 +258,12 @@ class InputField : public UIElement {
       cursor_pos = 0;
     }
     text_color = CV_RGB(0, 0, 0);
+    for (InputField* i : input_fields) {
+      if (i != this) i->Deactivate();
+    }
+  }
+  void Deactivate() {
+      active = false;
   }
   void Render() {
     auto t_end = std::chrono::high_resolution_clock::now();
@@ -286,9 +295,8 @@ class InputField : public UIElement {
                prompt);
     cv::rectangle(*parent_canvas, rect, title_color, 1);
   }
-
   void Update(int key, int x, int y, int event) {
-    if (event == cv::EVENT_LBUTTONUP) {
+    if (event == cv::EVENT_LBUTTONDOWN) {
       if (y < pos.y + 20 && y > pos.y - 5 && x > pos.x) {
         if (x < pos.x + entered.size() * char_size + char_size) {
           if (is_awake == false) {
@@ -301,7 +309,7 @@ class InputField : public UIElement {
               cursor_pos = static_cast<int>(entered.size());
           }
         }
-        ActivateCursor();
+        Activate();
       } else {
         if (is_awake) active = false;
       }
@@ -313,22 +321,22 @@ class InputField : public UIElement {
       }
       // ->
       if (key == OPENCV_RIGHT_ARROW_CODE) {
-        ActivateCursor();
+        Activate();
         if (cursor_pos < entered.size()) cursor_pos++;
       }
       // <-
       if (key == OPENCV_LEFT_ARROW_CODE) {
-        ActivateCursor();
+        Activate();
         if (cursor_pos > 0) cursor_pos--;
       }
       // backspace
       if (key == 8) {
-        ActivateCursor();
+        Activate();
         if (cursor_pos > 0) entered.erase(entered.begin() + --cursor_pos);
       }
       // delite
       if (key == 3014656) {
-        ActivateCursor();
+        Activate();
         if (cursor_pos < entered.size())
           entered.erase(entered.begin() + cursor_pos);
       }
@@ -338,12 +346,12 @@ class InputField : public UIElement {
       }
       // insert
       if (key == 2949120) {
-        ActivateCursor();
+        Activate();
         insert_state = !insert_state;
       }
       // ASCII symbol entered
       if (key >= 32 && key < 128) {
-        ActivateCursor();
+        Activate();
         if (insert_state) {
           if (cursor_pos == entered.size())
             entered.push_back((char)key);
@@ -356,7 +364,6 @@ class InputField : public UIElement {
       }
     }
   }
-
   string getText() const { return entered; }
 };
 
@@ -430,7 +437,7 @@ class VideoStream : public UIElement {
               cv::Size n_size = cv::Size(100, 100)) {
     pos = n_pos;
     size = n_size;
-    cap.open(0);
+    cap.open(file);
   }
 
   void Render() {

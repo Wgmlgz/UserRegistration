@@ -1,6 +1,6 @@
 success_database_clear = true
-input_titles = ur, mom, gay, dfsdf, fsdfsdf
-input_defaults = atack, helecopter, lol, dfsdf, dsfdf
+input_titles = Name, SecondName, Gender, Age
+input_defaults = name, second_name, gender, age
 image_provider = true
 successful_registration = true
 debug = true

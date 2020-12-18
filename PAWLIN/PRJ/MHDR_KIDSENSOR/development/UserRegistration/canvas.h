@@ -17,6 +17,7 @@ using namespace pawlin;
 
 class Canvas {
  public:
+  std::vector<std::function<void()>> on_update;
   string prompt;
   string window_name;
   cv::Size window_size;
@@ -82,6 +83,7 @@ class Canvas {
         //    CV_RGB(0, 0, 0), "Submit"));
       }
     }
+    for (auto i : on_update) i();
   }
   void AddUIElement(UIElement* element) {
     element->SetParentCanvas(&canvas);
