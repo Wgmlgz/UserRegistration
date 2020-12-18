@@ -27,7 +27,7 @@ class Canvas {
   cv::Mat canvas;
 
   vector<UIElement*> ui_elements;
-  vector<UIElement*> old_ui_elements;
+  vector<UIElement> old_ui_elements;
 
   // input
   int key, mouse_x, mouse_y, mouse_event;
@@ -91,7 +91,9 @@ class Canvas {
   }
 
   void ClearCanvas() {
-    old_ui_elements = ui_elements;
+    for (auto i : ui_elements) {
+      //delete i;
+    }
     ui_elements.clear();
     was_cleared = true;
   }

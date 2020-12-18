@@ -13,6 +13,11 @@
 class IImageProvider {
  public:
   virtual cv::Mat getImage() {
-	return cv::imread("da.png");
+    static int counter = 0;
+    ++counter;
+    if (counter > 3) counter = 0;
+    if (counter == 0) return cv::imread("0.png");
+    else if (counter == 1) return cv::imread("1.jpg");
+	else return cv::imread("2.jpg");
   }
 };

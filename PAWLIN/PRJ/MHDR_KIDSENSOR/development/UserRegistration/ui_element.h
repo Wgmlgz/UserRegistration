@@ -15,6 +15,7 @@
 #include <chrono>
 #include <ctime>
 #include <functional>
+#include "image_provider.h"
 
 using namespace pawlin;
 
@@ -431,18 +432,19 @@ class ButImage : public UIElement {
 
 class VideoStream : public UIElement {
   cv::VideoCapture cap;
-
+  IImageProvider* iip;
  public:
-  VideoStream(std::string file = "", cv::Point n_pos = cv::Point(100, 100),
+  VideoStream(IImageProvider* n_iip, cv::Point n_pos = cv::Point(100, 100),
               cv::Size n_size = cv::Size(100, 100)) {
     pos = n_pos;
     size = n_size;
-    cap.open(file);
+    iip = n_iip;
   }
 
   void Render() {
     cv::Mat frame;
-    cap >> frame;
+    frame = iip->getImage();
+    //cap >> frame;
 
     if (frame.empty()) return;
 

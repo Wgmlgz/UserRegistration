@@ -71,7 +71,7 @@ UrerRegistration::UrerRegistration() {
   main_canvas.on_update.push_back([&]() { Update(); });
 
 
-  imageProvider = new IImageProvider;
+
   DEBUG = cfgp.values.find(std::string("debug"))->second[0] ==
              std::string("true");
   for (auto i : cfgp.GetArray("input_titles")) input_titles.push_back(i);
@@ -109,66 +109,81 @@ void UrerRegistration::CreateConfirmCanvas() {
   }, CV_RGB(200, 0, 0), "Confirm"));
 }
 void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take) {
-  static VideoStream *vid = nullptr;
-  static int pos = 0;
-  static vector<bool> done = vector<bool>(6, 0);
-  if (start)
-    vid = new VideoStream("dudos.avi", cv::Point(1280 - 300 - 50, 100),
-                          cv::Size(300, 300));
-  if (images.size() == 0 || start) {
-    images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
-    done = vector<bool>(6, 0);
-    pos = 0;
-  }
-  if (inc) {
-    ++pos;
-  }
-
-  main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(vid);
-  main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50),
-                                    cv::Size(1000, 50), CV_RGB(0, 0, 0), false,
-                                    1, 2));
-  if (pos >= 5) {
-    main_canvas.AddUIElement(new Button(
-        cv::Point(1280 - 40 - 420, 720 - 50 - 50), cv::Size(200, 50),
-        [&]() {
-          try {
-            if (DEBUG) {
-              if (cfgp.Get("successful_registration") == "false") {
-                throw std::exception("this error was caused by config file");
-              }
-            }
-            CreateRegistrationSuccesCanvas();
-          } catch (std::exception error) {
-            CreateTextCanvas(error.what(), CV_RGB(200, 0, 0));
-          }
-        },
-        CV_RGB(0, 0, 0), "Submit"));
-  }
-  main_canvas.AddUIElement(new Button(
-      cv::Point(1280 - 200 - 50, 720 - 50 - 50), cv::Size(200, 50),
-      [&]() { CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
-  for (int i = 0, it = 0; i < 2; ++i) {
-    for (int j = 0; j < 3; ++j, ++it) {
-      if (it == pos) {
-        if (take) {
-          images.at(pos) = imageProvider->getImage();
-          done.at(pos) = true;
-        }
-        std::function<void()> func = []() {};
-        if (done.at(pos)) func = [&]() { CreateRegistrationCanvas(1); };
-        main_canvas.AddUIElement(new ButImage(
-            cv::Point(j * 275 + 50, i * 275 + 80), cv::Size(200, 280),
-            [&]() { CreateRegistrationCanvas(0, 0, 1); }, func, CV_RGB(0, 0, 0),
-            "Shoot", "Next", 40, images.at(it), pos == 5));
-        return;
-      }
-      main_canvas.AddUIElement(new Image(images.at(it),
-                                         cv::Point(j * 275 + 50, i * 275 + 120),
-                                         cv::Size(200, 200)));
+  imageProvider = new IImageProvider;
+  try {
+    if (DEBUG) {
+      if (cfgp.Get("image_provider") == "false")
+        throw std::exception(
+            "(image provider = false) this error was caused by config file");
     }
+
+    static VideoStream *vid = nullptr;
+    static int pos = 0;
+    static vector<bool> done = vector<bool>(6, 0);
+    if (start)
+      vid = new VideoStream(imageProvider, cv::Point(1280 - 300 - 50, 100),
+                            cv::Size(300, 300));
+    if (images.size() == 0 || start) {
+      images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
+      done = vector<bool>(6, 0);
+      pos = 0;
+    }
+    if (inc) {
+      ++pos;
+    }
+
+    main_canvas.ClearCanvas();
+    main_canvas.AddUIElement(vid);
+    main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50),
+                                      cv::Size(1000, 50), CV_RGB(0, 0, 0),
+                                      false, 1, 2));
+    if (pos >= 5) {
+      main_canvas.AddUIElement(new Button(
+          cv::Point(1280 - 40 - 420, 720 - 50 - 50), cv::Size(200, 50),
+          [&]() {
+            try {
+              if (DEBUG) {
+                if (cfgp.Get("successful_registration") == "false") {
+                  throw std::exception(
+                      "(successful_registration = false) this error was caused "
+                      "by config file");
+                }
+              }
+              CreateRegistrationSuccesCanvas();
+            } catch (std::exception error) {
+              CreateTextCanvas(error.what(), CV_RGB(200, 0, 0));
+            }
+          },
+          CV_RGB(0, 0, 0), "Submit"));
+    }
+    main_canvas.AddUIElement(new Button(
+        cv::Point(1280 - 200 - 50, 720 - 50 - 50), cv::Size(200, 50),
+        [&]() { CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
+    for (int i = 0, it = 0; i < 2; ++i) {
+      for (int j = 0; j < 3; ++j, ++it) {
+        if (it == pos) {
+          if (take) {
+            images.at(pos) = imageProvider->getImage();
+            done.at(pos) = true;
+          }
+          std::function<void()> func = []() {};
+          if (done.at(pos)) func = [&]() { CreateRegistrationCanvas(1); };
+          main_canvas.AddUIElement(new ButImage(
+              cv::Point(j * 275 + 50, i * 275 + 80), cv::Size(200, 280),
+              [&]() { CreateRegistrationCanvas(0, 0, 1); }, func,
+              CV_RGB(0, 0, 0), "Shoot", "Next", 40, images.at(it), pos == 5));
+          return;
+        }
+        main_canvas.AddUIElement(
+            new Image(images.at(it), cv::Point(j * 275 + 50, i * 275 + 120),
+                      cv::Size(200, 200)));
+      }
+    }
+
+  } catch (std::exception error) {
+    CreateTextCanvas(error.what(), CV_RGB(200, 0, 0));
   }
+  
 }
 void UrerRegistration::CreateRegistrationSuccesCanvas() {
   main_canvas.ClearCanvas();
