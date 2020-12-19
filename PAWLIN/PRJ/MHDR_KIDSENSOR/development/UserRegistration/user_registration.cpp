@@ -11,7 +11,6 @@
 
 #include <vector>
 #include <iostream>
-#include <functional>
 
 #include "canvas.h"
 #include "video_stream.h"
@@ -37,6 +36,27 @@ void CallBackFunc(int event, int x, int y, int flags, void *userdata) {callback(
 class UrerRegistration {
   bool start_input;
  public:
+  void log(string text = "") {
+      if (!DEBUG) return;
+      auto time = std::time(nullptr);
+      std::cout << "[LOGGER]" << "[" << std::put_time(std::localtime(&time), "%H:%M:%S") << "] " << text << std::endl;
+  }
+  string name, second_name, gender, age;
+  struct Personal {
+      string name;
+      string second_name;
+      string gender;
+      int age;
+      vector<cv::Mat> photos;
+      Personal(string n_name, string n_second_name, string n_gender, int n_age, vector<cv::Mat>* n_photos)
+      {
+          name = n_name;
+          second_name = n_second_name;
+          age = n_age;
+          photos = *n_photos;
+      }
+  };
+  vector<Personal> storage;
   bool DEBUG;
 
 Canvas main_canvas;
@@ -77,22 +97,25 @@ UrerRegistration::UrerRegistration() {
   for (auto i : cfgp.GetArray("input_titles")) input_titles.push_back(i);
   for (auto i : cfgp.GetArray("input_defaults"))
     input_default.push_back(i);
-  std::cout << "debug mode = " << DEBUG << std::endl;
+  log("Debug on");
 }
 void UrerRegistration::CreateStartCanvas() {
+  log("Start canvas creation");
   main_canvas.ClearCanvas();
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), [&]() {CreateInputCanvas(input_titles, input_default);}, CV_RGB(0, 0, 0), "Start registration"));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 + 30 - 50), cv::Size(200, 50), [&]() {CreateConfirmCanvas();}, CV_RGB(0, 0, 0), "Clear database"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 - 30 - 50), cv::Size(200, 50), [&]() {log("Start button pressed"); CreateInputCanvas(input_titles, input_default);}, CV_RGB(0, 0, 0), "Start registration"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 / 2 + 30 - 50), cv::Size(200, 50), [&]() {log("Clear database button pressed"); CreateConfirmCanvas();}, CV_RGB(0, 0, 0), "Clear database"));
 }
 void UrerRegistration::CreateTextCanvas(string text, cv::Scalar color) {
+  log("Text canvas creation, with text:\"" + text + "\"");
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text(text, cv::Point(1280 / 2 - 500, 720 / 2 - 25), cv::Size(1000, 50), color, true, 1, 2));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 - 100), cv::Size(200, 50), [&]() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100, 720 - 100), cv::Size(200, 50), [&]() {log("Back button pressed"); CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
 }
 void UrerRegistration::CreateConfirmCanvas() {
+  log("Confirmation canvas creation");
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text("Are you sure you want to clear the database?", cv::Point(1280 / 2 - 500, 720 / 2 - 25), cv::Size(1000, 50), CV_RGB(0, 0, 0), true, 1, 2));
-  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 + 120, 720 / 2 - 50 + 100), cv::Size(200, 50), [&]() {CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
+  main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 + 120, 720 / 2 - 50 + 100), cv::Size(200, 50), [&]() {log("Cancel button pressed"); CreateStartCanvas();}, CV_RGB(0, 0, 0), "Cancel"));
   main_canvas.AddUIElement(new Button(cv::Point(1280 / 2 - 100 - 120, 720 / 2 - 50 + 100), cv::Size(200, 50), [&]() {
 	try {
       database.users.clear();
@@ -109,11 +132,21 @@ void UrerRegistration::CreateConfirmCanvas() {
   }, CV_RGB(200, 0, 0), "Confirm"));
 }
 void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take) {
+<<<<<<< HEAD
   main_canvas.ClearCanvas();
   /*images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
   CreateRegistrationSuccesCanvas();
   return;*/
   static auto imageProvider = new IImageProvider;
+=======
+  if(start)
+      log("Creating registration canvas");
+  if(inc)
+      log("Reloading registration canvas");
+  if(take)
+      log("Reloading canvas & taking photo");
+  imageProvider = new IImageProvider;
+>>>>>>> 013cfee01b79297e513756464d959c6946f8a6ff
   try {
     if (DEBUG) {
       if (cfgp.Get("image_provider") == "false")
@@ -123,7 +156,8 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
 
     static int pos = 0;
     static vector<bool> done = vector<bool>(6, 0);
-
+    if(done[5])
+        log("Show submit");
     if (images.size() == 0 || start) {
       images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
       done = vector<bool>(6, 0);
@@ -144,7 +178,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
     if (pos >= 5 && done[5]) {
       main_canvas.AddUIElement(new Button(
           cv::Point(1280 - 40 - 420, 720 - 50 - 50), cv::Size(200, 50),
-          [&]() {
+          [&]() {log("Submit button pressed");
             try {
               if (DEBUG) {
                 if (cfgp.Get("successful_registration") == "false") {
@@ -162,7 +196,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
     }
     main_canvas.AddUIElement(new Button(
         cv::Point(1280 - 200 - 50, 720 - 50 - 50), cv::Size(200, 50),
-        [&]() { CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
+        [&]() { log("Cancel button pressed"); CreateStartCanvas(); }, CV_RGB(0, 0, 0), "Cancel"));
     for (int i = 0, it = 0; i < 2; ++i) {
       for (int j = 0; j < 3; ++j, ++it) {
         if (it == pos) {
@@ -171,7 +205,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
             images[pos] = imageProvider->getImage();
             done.at(pos) = true;
           }
-          std::function<void()> func = []() {};
+          std::function<void()> func = [&]() {log("Next button locked due to image absence"); };
           if (done.at(pos)) func = [&]() { CreateRegistrationCanvas(1); };
           main_canvas.AddUIElement(new ButImage(
               cv::Point(j * 275 + 50, i * 275 + 80), cv::Size(200, 280),
@@ -185,13 +219,17 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
     }
 
   } catch (std::exception error) {
+    log("Error caught!");
     CreateTextCanvas(error.what(), CV_RGB(200, 0, 0));
   }
   
 }
 void UrerRegistration::CreateRegistrationSuccesCanvas() {
+  log("Successful registration canvas creation");
   main_canvas.ClearCanvas();
   //auto cur_img = images.begin();
+  storage.push_back(Personal(name, second_name, gender, std::stoi(age), &images));
+  log("Pushing \"Personal\" data to vector");
   int k = 0;
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j) {
@@ -203,15 +241,19 @@ void UrerRegistration::CreateRegistrationSuccesCanvas() {
   main_canvas.AddUIElement(new Text("Was successfully registered!", cv::Point(50, 720 - 30), cv::Size(1000, 50), CV_RGB(0, 0, 0), false, 1, 2));
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 100, 720 / 2 - 25), cv::Size(200, 50), [&]() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
   main_canvas.Render();
+  log("Registration complete");
 }
 void UrerRegistration::CreateRegistrationFailCanvas(string error) {
+  log("Unsuccessful registration canvas creation");
   main_canvas.ClearCanvas();
   main_canvas.AddUIElement(new Text(error, cv::Point(300, 720 / 2 - 200), cv::Size(400, 400), CV_RGB(200, 0, 0), true, 1, 2));
   main_canvas.AddUIElement(new Button(cv::Point(1280 - 200 - 300, 720 / 2 - 25), cv::Size(200, 50), [&]() {CreateStartCanvas();}, CV_RGB(0, 0, 0), "Back to main menu"));
 }
 void UrerRegistration::CreateInputCanvas(std::vector<string> titles = {}, std::vector<string> defaults = {}) {
+  log("Input canvas creation");
   start_input = true;
   main_canvas.ClearCanvas();
+  log("Clearing input fields");
   input_fields.clear();
   for (int i = 0; i < titles.size(); ++i) {
     //continue;
@@ -229,16 +271,21 @@ void UrerRegistration::Update() {
     if (!i->is_awake) all_active = false;
   }
   if (all_active && start_input) {
+
     start_input = false;
     main_canvas.AddUIElement(new Button(
         cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50), cv::Size(200, 50),
-        [&]() {
+        [&]() { log("Submit button pressed");
           for (auto i : input_fields) {
             values.push_back(i->getText());
           }
           title_string = string(input_fields[0]->getText() + ", " +
                                 input_fields[1]->getText() + ", " +
                                 input_fields[2]->getText());
+          name = input_fields[0]->getText();
+          second_name = input_fields[1]->getText();
+          gender = input_fields[2]->getText();
+          age = input_fields[3]->getText();
           CreateRegistrationCanvas(0, 1);
         },
         CV_RGB(0, 0, 0), "Submit"));
