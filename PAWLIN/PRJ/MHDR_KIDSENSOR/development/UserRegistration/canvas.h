@@ -59,7 +59,7 @@ class Canvas {
     }
   }
   bool Update(int wait = 1) {
-    key = cv::waitKeyEx(wait);
+    key = cv::waitKey(1);
     bool flag = false;
     bool flag2 = true;
     for (int j = 0; j < ui_elements.size(); ++j) {
