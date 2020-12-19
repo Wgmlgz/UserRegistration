@@ -11,13 +11,16 @@
 #include <PWNOpenCvExt/cvmathdrawingnew.h>
 
 class IImageProvider {
+ cv::Mat mat0 = cv::imread("0.png");
+ cv::Mat mat1 = cv::imread("1.png");
+ cv::Mat mat2 = cv::imread("2.png");
  public:
   virtual cv::Mat getImage() {
     static int counter = 0;
     ++counter;
     if (counter > 200) counter = 0;
-    if (counter > 132) return cv::imread("0.png");
-    else if (counter > 66) return cv::imread("1.jpg");
-	else return cv::imread("2.jpg");
+    if (counter > 132) return mat0;
+    else if (counter > 66) return mat1;
+	else return mat2;
   }
 };

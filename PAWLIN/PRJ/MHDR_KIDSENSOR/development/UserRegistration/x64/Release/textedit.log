@@ -7,8 +7,8 @@ C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(271,75): war
 C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(96,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(98,66): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
   Generating code
-  5 of 1366 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+  1 of 1366 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
+    20 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Release\UserRegistration.exe

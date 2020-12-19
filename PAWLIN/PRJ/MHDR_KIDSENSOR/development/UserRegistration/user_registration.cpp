@@ -109,7 +109,11 @@ void UrerRegistration::CreateConfirmCanvas() {
   }, CV_RGB(200, 0, 0), "Confirm"));
 }
 void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take) {
-  imageProvider = new IImageProvider;
+  main_canvas.ClearCanvas();
+  /*images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
+  CreateRegistrationSuccesCanvas();
+  return;*/
+  static auto imageProvider = new IImageProvider;
   try {
     if (DEBUG) {
       if (cfgp.Get("image_provider") == "false")
@@ -163,7 +167,8 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
       for (int j = 0; j < 3; ++j, ++it) {
         if (it == pos) {
           if (take) {
-              images.at(pos) = imageProvider->getImage();
+            //delete &images[pos];
+            images[pos] = imageProvider->getImage();
             done.at(pos) = true;
           }
           std::function<void()> func = []() {};
@@ -175,8 +180,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
           return;
         }
         main_canvas.AddUIElement(
-            new Image(images.at(it), cv::Point(j * 275 + 50, i * 275 + 120),
-                      cv::Size(200, 200)));
+            new Image(images.at(it), cv::Point(j * 275 + 50, i * 275 + 120), cv::Size(200, 200)));
       }
     }
 
