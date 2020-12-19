@@ -252,8 +252,8 @@ int process(const ArgParser &parser) {
   };
 
   cv::setMouseCallback(ur.main_canvas.window_name, CallBackFunc);
-  ur.CreateRegistrationCanvas(0, 1);
-  //ur.CreateStartCanvas();
+  //ur.CreateRegistrationCanvas(0, 1);
+  ur.CreateStartCanvas();
   ur.main_canvas.Run();
   return 0;
 }
