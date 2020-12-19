@@ -154,6 +154,7 @@ class Button : public UIElement {
       if (x >= pos.x && pos.x + size.width >= x && y >= pos.y &&
           pos.y + size.height >= y) {
         func();
+        //while (event == cv::EVENT_LBUTTONDOWN);
       }
     }
   }
@@ -442,8 +443,8 @@ class VideoStream : public UIElement {
   }
 
   void Render() {
-    cv::Mat frame;
-    frame = iip->getImage();
+    if (iip == nullptr) return;
+    cv::Mat frame = iip->getImage();
     //cap >> frame;
 
     if (frame.empty()) return;
@@ -452,5 +453,12 @@ class VideoStream : public UIElement {
     i.SetParentCanvas(parent_canvas);
     i.Render();
   }
-  void Update(int key, int x, int y, int event) { Render(); }
+  void Update(int key, int x, int y, int event) 
+  { 
+      static int delay = 0;
+      ++delay;
+      delay %= 15;
+      if (delay == 0)
+          Render(); 
+  }
 };

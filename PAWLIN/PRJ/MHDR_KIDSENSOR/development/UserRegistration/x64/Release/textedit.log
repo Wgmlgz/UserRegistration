@@ -1,1 +1,14 @@
-﻿  textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\TextEdit\x64\Release\textedit.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: промежуточный каталог (x64\Release\) содержит файлы, которые используются совместно с другим проектом (textedit.vcxproj).  Это может привести к ошибкам очистки и перестроения.
+  user_registration.cpp
+C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(308,37): warning C4003: недостаточно аргументов для вызова макроса, подобного функции, "max"
+C:\UserRegistration\opencv4\build\include\opencv2\flann\result_set.h(430,62): warning C4003: недостаточно аргументов для вызова макроса, подобного функции, "max"
+C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(205,75): warning C4003: недостаточно аргументов для вызова макроса, подобного функции, "max"
+C:\UserRegistration\opencv4\build\include\opencv2\flann\lsh_index.h(271,75): warning C4003: недостаточно аргументов для вызова макроса, подобного функции, "max"
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(96,39): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\ui_element.h(98,66): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Создание кода
+  1 of 1364 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    4 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Release\UserRegistration.exe
