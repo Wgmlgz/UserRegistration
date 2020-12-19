@@ -37,6 +37,23 @@ void CallBackFunc(int event, int x, int y, int flags, void *userdata) {callback(
 class UrerRegistration {
   bool start_input;
  public:
+  string name, second_name, gender, age;
+  struct Personal
+  {
+      string name;
+      string second_name;
+      string gender;
+      int age;
+      vector<cv::Mat> photos;
+      Personal(string n_name, string n_second_name, string n_gender, int n_age, vector<cv::Mat>* n_photos)
+      {
+          name = n_name;
+          second_name = n_second_name;
+          age = n_age;
+          photos = *n_photos;
+      }
+  };
+  vector<Personal> storage;
   bool DEBUG;
 
 Canvas main_canvas;
@@ -188,6 +205,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
 void UrerRegistration::CreateRegistrationSuccesCanvas() {
   main_canvas.ClearCanvas();
   //auto cur_img = images.begin();
+  storage.push_back(Personal(name, second_name, gender, std::stoi(age), &images));
   int k = 0;
   for (int i = 0; i < 2; ++i) {
     for (int j = 0; j < 3; ++j) {
@@ -235,6 +253,10 @@ void UrerRegistration::Update() {
           title_string = string(input_fields[0]->getText() + ", " +
                                 input_fields[1]->getText() + ", " +
                                 input_fields[2]->getText());
+          name = input_fields[0]->getText();
+          second_name = input_fields[1]->getText();
+          gender = input_fields[2]->getText();
+          age = input_fields[3]->getText();
           CreateRegistrationCanvas(0, 1);
         },
         CV_RGB(0, 0, 0), "Submit"));
