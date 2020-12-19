@@ -15,9 +15,9 @@ class IImageProvider {
   virtual cv::Mat getImage() {
     static int counter = 0;
     ++counter;
-    if (counter > 3) counter = 0;
-    if (counter == 0) return cv::imread("0.png");
-    else if (counter == 1) return cv::imread("1.jpg");
+    if (counter > 200) counter = 0;
+    if (counter > 132) return cv::imread("0.png");
+    else if (counter > 66) return cv::imread("1.jpg");
 	else return cv::imread("2.jpg");
   }
 };
