@@ -17,6 +17,8 @@
 #include <functional>
 #include "image_provider.h"
 
+#define LOG true
+
 using namespace pawlin;
 
 class UIElement {
