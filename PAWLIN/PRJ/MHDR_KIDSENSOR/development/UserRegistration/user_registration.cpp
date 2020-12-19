@@ -128,14 +128,16 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
     if (inc) {
       ++pos;
     }
-
+    if (take) {
+        done.at(pos) = true;
+    }
     main_canvas.ClearCanvas();
     main_canvas.AddUIElement(new VideoStream(imageProvider, cv::Point(1280 - 300 - 50, 100),
                             cv::Size(300, 300)));
     main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50),
                                       cv::Size(1000, 50), CV_RGB(0, 0, 0),
                                       false, 1, 2));
-    if (pos >= 5) {
+    if (pos >= 5 && done[5]) {
       main_canvas.AddUIElement(new Button(
           cv::Point(1280 - 40 - 420, 720 - 50 - 50), cv::Size(200, 50),
           [&]() {
@@ -161,7 +163,7 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
       for (int j = 0; j < 3; ++j, ++it) {
         if (it == pos) {
           if (take) {
-            images.at(pos) = imageProvider->getImage();
+              images.at(pos) = imageProvider->getImage();
             done.at(pos) = true;
           }
           std::function<void()> func = []() {};
@@ -248,6 +250,7 @@ int process(const ArgParser &parser) {
   };
 
   cv::setMouseCallback(ur.main_canvas.window_name, CallBackFunc);
+  //ur.CreateRegistrationCanvas(0, 1);
   ur.CreateStartCanvas();
   ur.main_canvas.Run();
   return 0;
