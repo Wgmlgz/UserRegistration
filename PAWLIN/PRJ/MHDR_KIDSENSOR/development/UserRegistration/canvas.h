@@ -62,25 +62,27 @@ class Canvas {
     key = cv::waitKeyEx(wait);
     bool flag = false;
     bool flag2 = true;
-    for (auto i : ui_elements) {
+    for (int j = 0; j < ui_elements.size(); ++j) {
+      UIElement* i = ui_elements[j];
       if (was_cleared) {
         was_cleared = false;
         //for (UIElement* i : old_ui_elements) delete i;
         return true;
-      }
-      i->Update(key, mouse_x, mouse_y, mouse_event);
-      if (static_cast<InputField*>(i) != nullptr) {
-        flag = true;
-        if (static_cast<InputField*>(i)->is_awake == false) flag2 = false;
-      }
-      if (flag && flag2) {
-        //AddUIElement(new Button(
-        //    cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50),
-        //    cv::Size(200, 50),
-        //    []() {
-        //      
-        //    },
-        //    CV_RGB(0, 0, 0), "Submit"));
+      } else {
+        i->Update(key, mouse_x, mouse_y, mouse_event);
+        if (static_cast<InputField*>(i) != nullptr) {
+          flag = true;
+          if (static_cast<InputField*>(i)->is_awake == false) flag2 = false;
+        }
+        if (flag && flag2) {
+          // AddUIElement(new Button(
+          //    cv::Point(1280 - 200 - 200 - 50 - 25, 720 - 50 - 50),
+          //    cv::Size(200, 50),
+          //    []() {
+          //
+          //    },
+          //    CV_RGB(0, 0, 0), "Submit"));
+        }
       }
     }
     for (auto i : on_update) i();
@@ -92,16 +94,18 @@ class Canvas {
 
   void ClearCanvas() {
     for (auto i : ui_elements) {
-      //delete i;
+      delete i;
     }
     ui_elements.clear();
     was_cleared = true;
   }
+  void ClearAll() {
 
+  }
   void Canvas::CallBackFunc(int event, int x, int y, int flags) {
     mouse_x = x;
     mouse_y = y;
     mouse_event = event;
-    Update();
+    if (event == cv::EVENT_LBUTTONDOWN) Update();
   }
 };

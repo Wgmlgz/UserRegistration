@@ -117,12 +117,9 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
             "(image provider = false) this error was caused by config file");
     }
 
-    static VideoStream *vid = nullptr;
     static int pos = 0;
     static vector<bool> done = vector<bool>(6, 0);
-    if (start)
-      vid = new VideoStream(imageProvider, cv::Point(1280 - 300 - 50, 100),
-                            cv::Size(300, 300));
+
     if (images.size() == 0 || start) {
       images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
       done = vector<bool>(6, 0);
@@ -133,7 +130,8 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
     }
 
     main_canvas.ClearCanvas();
-    main_canvas.AddUIElement(vid);
+    main_canvas.AddUIElement(new VideoStream(imageProvider, cv::Point(1280 - 300 - 50, 100),
+                            cv::Size(300, 300)));
     main_canvas.AddUIElement(new Text(title_string, cv::Point(50, 50),
                                       cv::Size(1000, 50), CV_RGB(0, 0, 0),
                                       false, 1, 2));
