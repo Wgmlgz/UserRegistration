@@ -132,21 +132,14 @@ void UrerRegistration::CreateConfirmCanvas() {
   }, CV_RGB(200, 0, 0), "Confirm"));
 }
 void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take) {
-<<<<<<< HEAD
   main_canvas.ClearCanvas();
-  /*images = std::vector<cv::Mat>(6, cv::Mat::zeros(cv::Size(1, 1), 0));
-  CreateRegistrationSuccesCanvas();
-  return;*/
   static auto imageProvider = new IImageProvider;
-=======
   if(start)
       log("Creating registration canvas");
   if(inc)
       log("Reloading registration canvas");
   if(take)
       log("Reloading canvas & taking photo");
-  imageProvider = new IImageProvider;
->>>>>>> 013cfee01b79297e513756464d959c6946f8a6ff
   try {
     if (DEBUG) {
       if (cfgp.Get("image_provider") == "false")
@@ -201,7 +194,6 @@ void UrerRegistration::CreateRegistrationCanvas(bool inc, bool start, bool take)
       for (int j = 0; j < 3; ++j, ++it) {
         if (it == pos) {
           if (take) {
-            //delete &images[pos];
             images[pos] = imageProvider->getImage();
             done.at(pos) = true;
           }
@@ -279,9 +271,10 @@ void UrerRegistration::Update() {
           for (auto i : input_fields) {
             values.push_back(i->getText());
           }
-          title_string = string(input_fields[0]->getText() + ", " +
+          title_string = string(input_fields[0]->getText() + " " +
                                 input_fields[1]->getText() + ", " +
-                                input_fields[2]->getText());
+                                input_fields[2]->getText() + ", " +
+                                input_fields[3]->getText());
           name = input_fields[0]->getText();
           second_name = input_fields[1]->getText();
           gender = input_fields[2]->getText();
