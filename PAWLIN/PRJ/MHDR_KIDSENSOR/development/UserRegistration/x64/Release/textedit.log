@@ -1,0 +1,11 @@
+﻿  ArgParser.cpp
+  PWNExceptionBasic.cpp
+  pwnutil.cpp
+  cvmathdrawingnew.cpp
+  Generating code
+C:\UserRegistration\UserRegistration\canvas.h(68): warning C4715: 'Canvas::Update': not all control paths return a value
+  1052 of 1545 functions (68.1%) were compiled, the rest were copied from previous compilation.
+    339 functions were new in current compilation
+    22 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  textedit.vcxproj -> C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Release\UserRegistration.exe

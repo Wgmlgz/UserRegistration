@@ -1,0 +1,2 @@
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.exe
+C:\UserRegistration\PAWLIN\PRJ\MHDR_KIDSENSOR\development\UserRegistration\x64\Debug\UserRegistration.pdb
